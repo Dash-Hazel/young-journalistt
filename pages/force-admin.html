@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="../js/auth/firebase-config.js"></script>
+</head>
+<body>
+    <h1>Force Admin Role</h1>
+    <button onclick="forceAdmin()">Make Current User Admin</button>
+    <div id="status"></div>
+    
+    <script>
+    async function forceAdmin() {
+        const user = auth.currentUser;
+        if (!user) {
+            alert('Please login first');
+            return;
+        }
+        
+        try {
+            await db.ref('users/' + user.uid).set({
+                uid: user.uid,
+                email: user.email,
+                displayName: user.displayName || 'Admin',
+                role: 'admin',
+                createdAt: Date.now(),
+                forcedAdmin: true
+            });
+            
+            document.getElementById('status').innerHTML = 
+                '<h3 style="color:green">✅ Success! You are now admin.</h3>' +
+                '<p>User ID: ' + user.uid + '</p>' +
+                '<p>Email: ' + user.email + '</p>' +
+                '<p><a href="admin.html">Go to Admin Panel</a></p>';
+                
+        } catch (error) {
+            document.getElementById('status').innerHTML = 
+                '<h3 style="color:red">❌ Error: ' + error.message + '</h3>';
+        }
+    }
+    
+    
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            document.body.innerHTML += 
+                '<p>Logged in as: ' + user.email + '</p>' +
+                '<p>UID: ' + user.uid + '</p>';
+        }
+    });
+    </script>
+</body>
+</html>

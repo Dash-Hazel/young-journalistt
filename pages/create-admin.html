@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="../js/auth/firebase-config.js"></script>
+</head>
+<body>
+    <h1>Create Admin User (Run Once)</h1>
+    <input type="email" id="email" placeholder="admin@example.com">
+    <input type="password" id="password" placeholder="password">
+    <input type="text" id="name" placeholder="Admin Name">
+    <button onclick="createAdmin()">Create Admin</button>
+    
+    <script>
+    async function createAdmin() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const name = document.getElementById('name').value;
+        
+        try {
+            
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user;
+            
+            
+            await db.ref(`users/${user.uid}`).set({
+                uid: user.uid,
+                email: email,
+                displayName: name,
+                role: 'admin',
+                createdAt: firebase.database.ServerValue.TIMESTAMP,
+                isSuperAdmin: true
+            });
+            
+            alert('✅ Admin user created successfully!');
+            console.log('Admin UID:', user.uid);
+            console.log('You can now access admin.html');
+            
+        } catch (error) {
+            alert('Error: ' + error.message);
+        }
+    }
+    </script>
+</body>
+</html>
