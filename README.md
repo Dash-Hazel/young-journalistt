@@ -1,4 +1,4 @@
-# CampusHub - School Journalism Club Platform
+# Young Journalist- School Journalism Club Platform
 
 ![CampusHub Banner](https://via.placeholder.com/1200x400/3498db/ffffff?text=CampusHub+Journalism+Platform)
 
