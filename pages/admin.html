@@ -9,6 +9,10 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <script src="../js/auth/firebase-config.js"></script>
+    
+    <!-- Vercel Web Analytics -->
+    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+    
     <style>
         body { padding-top: 100px; }
         .admin-section { margin-bottom: 60px; }
@@ -171,7 +175,7 @@
             <div class="form-container" style="background:white;padding:30px;border-radius:15px;
                  box-shadow:0 10px 30px rgba(0,0,0,.08);margin-bottom:30px;">
                 <h3 style="margin-top:0;">1. Изберете тип рубрика</h3>
-                <p style="color:#7f8c8d;margin-bottom:25px;">Изберете в коя рубрика искате да публикувате:</p>
+                <p style="color:#7f8c8d;margin-bottom:25px;">И��берете в коя рубрика искате да публикувате:</p>
                 <div id="rubricTypeSelector"
                      style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;">
                 </div>
@@ -485,7 +489,7 @@
                 .catch((error) => {
                     console.error('Error loading events:', error);
                     document.getElementById('adminEventsList').innerHTML = 
-                        '<div class="no-events">Грешка при зареждане на събитията</div>';
+                        '<div class="no-events">Грешка при зареждане на с��битията</div>';
                 });
         }
 
@@ -640,7 +644,7 @@
                 
                 if (!approvedSnapshot.exists()) {
                     articlesContainer.innerHTML = 
-                        '<div class="empty-state">Няма статии, чакащи окончателно одобрение.</div>';
+                        '<div class="empty-state">Няма стат��и, чакащи окончателно одобрение.</div>';
                     return;
                 }
                 
